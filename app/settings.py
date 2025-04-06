@@ -42,7 +42,8 @@ DEBUG = True
 HOSTNAME = env('HOSTNAME', default='localhost')
 
 ALLOWED_HOSTS = [
-  HOSTNAME,
+  'aksg6nn8sa.execute-api.us-east-1.amazonaws.com',
+  'tutorial-sagemaker-huggingface.demo.klaudsol.com'
 ]
 
 
