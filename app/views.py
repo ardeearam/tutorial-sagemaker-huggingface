@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from app.lib.sagemaker import SageMakerRuntime
+from app.lib.processor import combine_tokens, tag_text
 from pprint import pprint
 import json
 
@@ -20,11 +21,11 @@ def home(request):
     response = sagemaker_runtime_client.invoke_endpoint({"inputs": query})
     print(response)
     
-    message = response
+    message = tag_text(text=query, tags=combine_tokens(response))
 
     return render(request, 'app/index.html', {
       'query': query, 
-      'message': json.dumps(message),
+      'message': message,
       'references': '',
       'references_count': 0
     }) 

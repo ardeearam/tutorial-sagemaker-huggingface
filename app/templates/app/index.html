@@ -4,9 +4,12 @@
 <html lang="en-us" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Tutorial: Django + Amazon Bedrock</title>
+    <title>Tutorial: Sagemaker + Hugging Face</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/smoothness/jquery-ui.css" />
     <style>
       /* In production projects, this should be refactored to its own CSS file*/
       html {
@@ -238,7 +241,94 @@
         font-weight: bold;
       }
     </style>
+    <style>
+      .PER {
+        color: white;
+        background-color: blue;
+        font-weight: bold;
+        padding: 2px 4px;
+      }
 
+      .LOC {
+        color: white;
+        background-color: green;
+        font-weight: bold;
+        padding: 2px 4px;
+      }
+
+      .ORG {
+        color: white;
+        background-color: red;
+        font-weight: bold;
+        padding: 2px 4px;
+      }
+
+      .entity {
+        cursor: pointer;
+      }
+
+      .ui-tooltip {
+        margin: 0;
+        padding: 2px 4px;
+        color: black;
+        box-shadow: none;
+        border: none;
+      box-shadow: none; /* Optional: remove the shadow too */
+      background-color: #eeeeee;
+          }
+
+      .arrow {
+      width: 70px;
+      height: 16px;
+      overflow: hidden;
+      position: absolute;
+      left: 50%;
+      margin-left: -35px;
+      bottom: -16px;
+      color: #eeeeee;
+    }
+    .arrow.top {
+      top: -16px;
+      bottom: auto;
+    }
+    .arrow.left {
+      left: 20%;
+    }
+    .arrow:after {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: -20px;
+      width: 25px;
+      height: 25px;
+      box-shadow: 6px 5px 9px -9px black;
+      transform: rotate(45deg);
+    }
+    .arrow.top:after {
+      bottom: -20px;
+      top: auto;
+    }      
+    </style>
+    <script>
+      $( function() {
+        $( document ).tooltip({
+          position: {
+          my: "center bottom-20",
+          at: "center top",
+          using: function( position, feedback ) {
+            $( this ).css( position );
+            $( "<div>" )
+              .addClass( "arrow" )
+              .addClass( feedback.vertical )
+              .addClass( feedback.horizontal )
+              .appendTo( this );
+          }
+        }});
+
+        $( document ).tooltip("open");
+
+      } );
+      </script>
 
   </head>
   <body>

@@ -15,6 +15,6 @@ class SageMakerRuntime:
           Body=json.dumps(payload)
       )
 
-      return response["Body"].read().decode()
+      return json.loads(response["Body"].read().decode())
 
 
