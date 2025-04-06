@@ -41,7 +41,11 @@ DEBUG = True
 #Add your own hostname in .env
 HOSTNAME = env('HOSTNAME', default='localhost')
 
+# Sagemaker Settings
+SAGEMAKER_ENDPOINT_NAME = env('SAGEMAKER_ENDPOINT_NAME')
+
 ALLOWED_HOSTS = [
+  '127.0.0.1',
   'aksg6nn8sa.execute-api.us-east-1.amazonaws.com',
   'tutorial-sagemaker-huggingface.demo.klaudsol.com'
 ]

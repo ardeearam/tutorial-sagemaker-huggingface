@@ -239,49 +239,6 @@
       }
     </style>
 
-<script type="text/javascript">
-
-  //We write in ES5-compatible code so that it will run
-  //on the widest array of browsers.
-  //No fat arrow functions, sadly.
-
-  function ready(fn) {
-    if (document.readyState !== 'loading') {
-      fn();
-    } else {
-      document.addEventListener('DOMContentLoaded', fn);
-    }
-  }
-
-  function init() {
-
-    var mainResponseOptions = {
-      strings: [{{ message|safe }}],
-      typeSpeed: 0.5, // Speed in milliseconds per character
-
-      loop: false, // Loop the effect
-      showCursor: false,
-      onComplete: function() {
-        
-        document.querySelector('#header-references').style.display = 'block';
-
-        //Display the resources only after the main response
-        var referencesOptions = {
-          strings: [{{ references|safe }}],
-          typeSpeed: 0.5, // Speed in milliseconds per character
-          loop: false, // Loop the effect
-          showCursor: false
-        }
-
-        new Typed(document.querySelector('.main-references'), referencesOptions);
-      } 
-    };
-    
-    new Typed(document.querySelector('.main-response'), mainResponseOptions);
-  }
-
-  ready(init);
-</script>
 
   </head>
   <body>
@@ -289,16 +246,15 @@
       <div class="main-input">
         <form method="POST">
           {% csrf_token %}
-          <textarea name="query" placeholder="Ask anything about the Civil Code of the Philippines" rows="10">{{ query }}</textarea>
-          <input type="submit" value="Ask" />
+          <textarea name="query" placeholder="" rows="10">{{ query }}</textarea>
+          <input type="submit" value="Submit" />
         </form>
     </div>
 
-      <div class="main-response"></div>
+      <div class="main-response">
+        {{message|safe}}
+      </div>
 
-      {% if references_count > 0 %}
-      <h2 id="header-references">References:</h2>
-      {% endif %}
 
       <div class="main-references"></div>
     </main>
