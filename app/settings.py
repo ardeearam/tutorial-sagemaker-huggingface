@@ -145,3 +145,52 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+### Static Assets
+APP_ENV = env('APP_ENV', default='development')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = env('AWS_S3_CUSTOM_DOMAIN')
+PROJECT_NAME = env('PROJECT_NAME')
+
+# Use AWS S3 on all environments for media uploads
+STORAGES = {
+  'default': {
+    'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+    'OPTIONS': {
+        'bucket_name': AWS_STORAGE_BUCKET_NAME,
+        'custom_domain': AWS_S3_CUSTOM_DOMAIN,
+        'location': f'{PROJECT_NAME}/'
+    }
+  }
+}
+
+
+if APP_ENV == 'production':
+
+  # Static and Media Files Storage
+
+  # Media files settings
+  #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+  STORAGES['staticfiles'] = {
+    'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+    'OPTIONS': {
+        'bucket_name': AWS_STORAGE_BUCKET_NAME,
+        'custom_domain': AWS_S3_CUSTOM_DOMAIN,
+        'location': f'{PROJECT_NAME}/static/'
+    },
+  }
+
+  STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+
+
+else:
+  #Development. Use whitenoise for static file management 
+  #This makes modification of CSS easier.
+  STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+  MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+  STORAGES['staticfiles'] = {
+    'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
+  }
+
+  STATIC_URL = '/static/'
