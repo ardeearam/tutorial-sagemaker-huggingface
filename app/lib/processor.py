@@ -40,6 +40,8 @@ def humanize_tag(tag):
       return "Organization"
     case "LOC":
       return "Location"
+    case "MISC":
+      return "Miscellaneous"
     case "_":
       return tag
 
