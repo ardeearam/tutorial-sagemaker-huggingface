@@ -26,7 +26,5 @@ def home(request):
     return render(request, 'app/index.html', {
       'query': query, 
       'message': message,
-      'references': '',
-      'references_count': 0
     }) 
       
